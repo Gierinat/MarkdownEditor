@@ -21,7 +21,12 @@ def link_formatter():
 
 
 def header_formatter():
-    level = int(input("Level: "))
+    level = 0
+    while level < 1 or level > 6:
+        level = int(input("Level: "))
+        if level < 1 or level > 6:
+            print("The level should be within the range of 1 to 6")
+
     text = input("Text: ")
     return "#" * level + " " + text
 
