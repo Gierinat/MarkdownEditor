@@ -28,7 +28,7 @@ def header_formatter():
             print("The level should be within the range of 1 to 6")
 
     text = input("Text: ")
-    return "#" * level + " " + text
+    return "#" * level + " " + text + "\n"
 
 
 def formatter_solver(formatter, text):
@@ -45,7 +45,7 @@ def formatter_solver(formatter, text):
     if formatter == 'inline-code':
         text += "`" + take_text(formatter) + "`"
     if formatter == 'new-line':
-        text += "  \n"
+        text += "\n"
     return text
 
 
