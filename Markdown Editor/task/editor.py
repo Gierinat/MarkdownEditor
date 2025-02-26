@@ -1,7 +1,7 @@
 END_OPTION = "!done"
 HELP_OPTION = "!help"
-SUPPORTED_COMMANDS = ('plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line')
-# 'ordered-list', 'unordered-list',
+SUPPORTED_COMMANDS = ('plain', 'bold', 'italic', 'header', 'link', 'inline-code', 'new-line',
+                      'ordered-list', 'unordered-list', END_OPTION)
 user_text = ""
 
 
@@ -31,6 +31,21 @@ def header_formatter():
     return "#" * level + " " + text + "\n"
 
 
+def list_formatter(formatter):
+    rows = 0
+    while rows < 1:
+        rows = int(input("Number of rows: "))
+        if rows < 1:
+            print("The number of rows should be greater than zero")
+    list_temp = ""
+    for row in range(1, rows + 1):
+        text = input(f"Row #{row}: ") + "\n"
+        text = (lambda t, f: "* " + t if f == 'unordered-list' else f"{row}. " + t)(text, formatter)
+        list_temp += text
+
+    return list_temp
+
+
 def formatter_solver(formatter, text):
     if formatter == 'plain':
         text += take_text(formatter)
@@ -46,7 +61,17 @@ def formatter_solver(formatter, text):
         text += "`" + take_text(formatter) + "`"
     if formatter == 'new-line':
         text += "\n"
+    if formatter == 'ordered-list':
+        text += list_formatter(formatter)
+    if formatter == 'unordered-list':
+        text += list_formatter(formatter)
     return text
+
+
+def file_saver(text):
+    file = open("output.md", 'w')
+    file.write(text)
+    file.close()
 
 
 def main():
@@ -63,6 +88,8 @@ def main():
             print(user_text)
         else:
             print("Unknown formatting type or command")
+
+    file_saver(user_text)
 
 
 if __name__ == "__main__":
