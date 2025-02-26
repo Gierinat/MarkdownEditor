@@ -8,3 +8,5 @@ Available formatters:
 - link
 - header 
 - new-line
+- ordered-list
+- unordered-list
